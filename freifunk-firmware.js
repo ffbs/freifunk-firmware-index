@@ -44,7 +44,6 @@ $(function () {
       links.each(function () {
         var target = $(this).attr('href');
         target = target.substring(0, target.length - 1);
-        console.log(target, EXCLUDE.indexOf(target))
         if (EXCLUDE.indexOf(target) == -1) {
           $('#allversions').append('<li><a href="'+target+'/">'+target+'</a></li>');
         }
