@@ -1,5 +1,6 @@
 $(function () {
     'use strict';
+    var EXCLUDE = ['..', 'doc', 'stable', 'beta', 'experimental']
     $('.hero-unit [data-channel]').click(function () {
         $('#models').hide();
         var path = '/'+$(this).attr('data-channel')+'/factory/';
@@ -38,6 +39,17 @@ $(function () {
             document.location.hash = 'models';
         }, 'html');
     });
+    $.get('/raw/', function (data) {
+      var links = $(data).find('a[href$="/"]');
+      links.each(function () {
+        var target = $(this).attr('href');
+        target = target.substring(0, target.length - 1);
+        console.log(target, EXCLUDE.indexOf(target))
+        if (EXCLUDE.indexOf(target) == -1) {
+          $('#allversions').append('<li><a href="'+target+'/">'+target+'</a></li>');
+        }
+      });
+    }, 'html');
 });
 
 var renderRouters = function (routers) {

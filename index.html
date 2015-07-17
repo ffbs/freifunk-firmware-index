@@ -5,18 +5,25 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="bootstrap.min.css">
     <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="ffbs-firmware.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script type="text/javascript" src="freifunk-firmware.js"></script>
 </head>
 
 <body>
     <div class="hero-unit">
-        <h1>Firmware des Freifunk Braunschweig</h1>
-        <p>Hier kannst du die Firmware für deinen Freifunk Router herunterladen</p>
-        <p>
-            <a class="btn btn-primary btn-large" data-channel="stable">Stabile version</a>
-            <a class="btn btn-warning" data-channel="beta">Beta</a>
-            <a class="btn btn-danger" data-channel="experimental">Experimentelle Version</a>
-        </p>
+        <h1>Firmware Freifunk Braunschweig</h1>
+        <p>Hier kannst du die Firmware für deinen Freifunk-Router herunterladen</p>
+        <a class="btn btn-primary btn-large" data-channel="stable">Stabile version</a>
+        <a class="btn btn-warning" data-channel="beta">Beta</a>
+        <a class="btn btn-danger" data-channel="experimental">Experimentelle Version</a>
+        <div class="btn-group">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                F&uuml;r Fortgeschrittene
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" id="allversions">
+            </ul>
+        </div>
     </div>
     <hr>
     <div id="models" class="hide">
