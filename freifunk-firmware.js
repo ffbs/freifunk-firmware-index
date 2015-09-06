@@ -30,9 +30,9 @@ $(function () {
             });
             links.first().each(function () {
                 var link = $(this).attr('href').split('/').slice(-1)[0],
-                    split = link.split('-', 4).slice(2);
-                $('#version').html(split[0].replace('%7E', '~'));
-                $('#versiondate').html(renderDate(split[1]));
+                match = link.match(/gluon-[a-zA-Z]+-([0-9.]+~[a-zA-Z]+)-?([0-9]+)-/);
+                $('#version').html(match[1].replace('%7E', '~'));
+                $('#versiondate').html(renderDate(match[2]));
             });
             $('tbody').html(renderRouters(routers));
             $('#models').fadeIn(500);
