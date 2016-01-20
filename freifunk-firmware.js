@@ -1,9 +1,9 @@
 $(function () {
     'use strict';
     var EXCLUDE = ['..', 'doc', 'stable', 'beta', 'experimental']
-    $('.hero-unit [data-channel]').click(function () {
+    var showChannel = function (channel) {
         $('#models').hide();
-        var path = '/'+$(this).attr('data-channel')+'/factory/';
+        var path = '/'+channel+'/factory/';
         $.get(path, function (data) {
             var routers = {},
                 links = $(data).find('a[href$=".bin"]');
@@ -37,6 +37,9 @@ $(function () {
             $('tbody').html(renderRouters(routers));
             $('#models').fadeIn(500);
         }, 'html');
+    }
+    $('.hero-unit [data-channel]').click(function () {
+        showChannel($(this).attr('data-channel'));
     });
     $.get('/raw/', function (data) {
       var links = $(data).find('a[href$="/"]');
@@ -50,7 +53,7 @@ $(function () {
     }, 'html');
     if (document.location.hash !== '') {
         var channel = document.location.hash.substr(1);
-        $('[data-channel="'+channel+'"]').click();
+        showChannel(channel);
     }
 });
 
