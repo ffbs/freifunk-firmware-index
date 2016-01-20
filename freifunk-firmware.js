@@ -36,7 +36,6 @@ $(function () {
             });
             $('tbody').html(renderRouters(routers));
             $('#models').fadeIn(500);
-            document.location.hash = 'models';
         }, 'html');
     });
     $.get('/raw/', function (data) {
@@ -49,6 +48,10 @@ $(function () {
         }
       });
     }, 'html');
+    if (document.location.hash !== '') {
+        var channel = document.location.hash.substr(1);
+        $('[data-channel="'+channel+'"]').click();
+    }
 });
 
 var renderRouters = function (routers) {
