@@ -30,7 +30,7 @@ $(function () {
             });
             links.first().each(function () {
                 var link = $(this).attr('href').split('/').slice(-1)[0],
-                match = link.match(/gluon-[a-zA-Z]+-([0-9.]+~[a-zA-Z]+)-?([0-9]+)-/);
+                match = link.match(/gluon-[a-zA-Z]+-([0-9.]+~[a-zA-Z_]+)-?([0-9]+)-/);
                 $('#version').html(match[1].replace('%7E', '~'));
                 $('#versiondate').html(renderDate(match[2]));
             });
