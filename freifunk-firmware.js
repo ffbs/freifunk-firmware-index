@@ -28,6 +28,17 @@ $(function () {
                 }
                 routers[model].push([hwversion, link]);
             });
+            for (var model in routers) {
+                routers[model].sort(function (x, y) {
+                    var a = x[0], b = y[0];
+                    if (a[0] === 'v' && b[0] === 'v') {
+                        try {
+                            return parseInt(a.substr(1)) - parseInt(b.substr(1))
+                        } catch (e) {}
+                    }
+                    return a.localeCompare(b);
+                });
+            }
             links.first().each(function () {
                 var link = $(this).attr('href').split('/').slice(-1)[0],
                 match = link.match(/gluon-[a-zA-Z]+-([0-9.]+~[a-zA-Z_]+)-?([0-9]+)-/);
