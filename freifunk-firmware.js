@@ -23,6 +23,7 @@ $(function () {
                     model = router;
                     hwversion = 'alle';
                 }
+                model = unescape(model);
                 if (!routers[model]) {
                     routers[model] = [];
                 }
