@@ -9,7 +9,7 @@ $(function () {
                 links = $(data).find('a[href$=".bin"]');
             links.each(function () {
                 var link = path+$(this).attr('href'),//.split('/').slice(-1)[0],
-                    router = link.split('-').slice(4).join('-').split('.')[0],
+                    router = link.split('-').slice(4).join('-').split('.').slice(0,-1).join('.'),
                     split = router.split('-'),
                     model,
                     hwversion;
