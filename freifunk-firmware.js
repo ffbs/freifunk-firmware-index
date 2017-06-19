@@ -78,9 +78,11 @@ $(function () {
 
 var renderRouters = function (routers) {
     'use strict';
-    var keys = Object.keys(routers).sort(function (x,y) {x.localeCompare(y)}),
+    var keys = Object.keys(routers),
         out = '',
         model, j, i, versions;
+    keys.sort();
+    console.log(keys);
     for (j in keys) {
         model = keys[j];
         versions = routers[model];
