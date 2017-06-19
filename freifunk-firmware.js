@@ -5,7 +5,8 @@ $(function () {
         /^(.+)-(v[.0-9]+)$/,
         /^(.+)(v[.0-9]+)$/,
         /^(.+)-rev-(.+)$/,
-        /^(x86[-64]*)-([a-z]+)$/
+        /^(x86[-64]*)-([a-z]+)$/,
+        /^(raspberry-pi)-([0-9])$/
     ];
     var showChannel = function (channel) {
         $('#models').hide();
@@ -77,8 +78,11 @@ $(function () {
 
 var renderRouters = function (routers) {
     'use strict';
-    var model, i, versions, out = '';
-    for (model in routers) {
+    var keys = Object.keys(routers).sort(function (x,y) {x.localeCompare(y)}),
+        out = '',
+        model, j, i, versions;
+    for (j in keys) {
+        model = keys[j];
         versions = routers[model];
         out += '<tr><td rowspan="' + versions.length + '">' + model + '</td>';
         for (i in versions) {
