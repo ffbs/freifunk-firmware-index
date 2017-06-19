@@ -1,32 +1,35 @@
 $(function () {
     'use strict';
     var EXCLUDE = ['..', 'doc', 'stable', 'beta', 'experimental']
+    var REGEXES = [
+        /^(.+)-(v[.0-9]+)$/,
+        /^(.+)(v[.0-9]+)$/,
+        /^(.+)-rev-(.+)$/,
+        /^(x86[-64]*)-([a-z]+)$/
+    ];
     var showChannel = function (channel) {
         $('#models').hide();
         var path = '/'+channel+'/factory/';
         $.get(path, function (data) {
             var routers = {},
-                links = $(data).find('a[href$=".bin"]');
+                links = $(data).find('a[href^="v"]');
             links.each(function () {
-                var link = path+$(this).attr('href'),//.split('/').slice(-1)[0],
-                    router = link.split('-').slice(4).join('-').split('.').slice(0,-1).join('.'),
-                    split = router.split('-'),
-                    model,
-                    hwversion;
-                if (split.slice(-1)[0][0] === 'v') {
-                    model = split.slice(0, -1).join('-');
-                    hwversion = split.slice(-1)[0];
-                } else if (split.slice(-2, -1)[0] === 'rev') {
-                    model = split.slice(0, -2).join('-');
-                    hwversion = split.slice(-1)[0];
-                } else {
-                    model = router;
-                    hwversion = 'alle';
+                var file = $(this).attr('href'),
+                    link = path+file,
+                    str = file.match(/v[^-]+-[^-]+-[a-z]+-(.+?)(\.[a-z]+)+$/)[1],
+                    model, hwversion, i, m;
+                for (i = 0; i < REGEXES.length; i++) {
+                    if (m = str.match(REGEXES[i])) {
+                        model = m[1], hwversion = m[2];
+                        break;
+                    }
                 }
+                if (!model) {
+                    model = str, hwversion = 'alle';
+                }
+
                 model = unescape(model);
-                if (!routers[model]) {
-                    routers[model] = [];
-                }
+                if (!routers[model]) routers[model] = [];
                 routers[model].push([hwversion, link]);
             });
             for (var model in routers) {
@@ -39,11 +42,14 @@ $(function () {
                     }
                     return a.localeCompare(b);
                 });
+                if (routers[model].length > 1 && routers[model][0][0] === 'alle') {
+                    routers[model][0][0] = 'v1';
+                }
             }
             links.first().each(function () {
                 var link = $(this).attr('href').split('/').slice(-1)[0],
-                match = link.match(/gluon-[a-zA-Z]+-([0-9.]+~[a-zA-Z_]+)-?([0-9]+)-/);
-                $('#version').html(match[1].replace('%7E', '~'));
+                    match = link.match(/^(v[0-9.]+)-([0-9]+)-/);
+                $('#version').html(match[1]);
                 $('#versiondate').html(renderDate(match[2]));
             });
             $('tbody').html(renderRouters(routers));
