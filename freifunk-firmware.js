@@ -1,6 +1,6 @@
 $(function () {
     'use strict';
-    var EXCLUDE = ['..', 'doc', 'stable', 'beta', 'experimental']
+    var EXCLUDE = ['..', 'doc', 'stable', 'beta']
     var REGEXES = [
         /^(.+)-(v[.0-9]+)$/,
         /^(.+)(v[.0-9]+)$/,
