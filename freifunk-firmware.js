@@ -17,7 +17,7 @@ $(function () {
             links.each(function () {
                 var file = $(this).attr('href'),
                     link = path+file,
-                    str = file.match(/v[^-]+-[^-]+-[a-z]+-(.+?)(\.[a-z]+)+$/)[1],
+                    str = file.match(/v[^-]+(?:-ffbs)?-[^-]+-[a-z]+-(.+?)(\.[a-z]+)+$/)[1],
                     model, hwversion, i, m;
                 for (i = 0; i < REGEXES.length; i++) {
                     if (m = str.match(REGEXES[i])) {
@@ -49,7 +49,7 @@ $(function () {
             }
             links.first().each(function () {
                 var link = $(this).attr('href').split('/').slice(-1)[0],
-                    match = link.match(/^(v[0-9.]+)-([0-9]+)-/);
+                    match = link.match(/^(v[0-9.]+)(?:-ffbs)?-([0-9]+)[0-9]{4}-/);
                 $('#version').html(match[1]);
                 $('#versiondate').html(renderDate(match[2]));
             });
